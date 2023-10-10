@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useEffect } from "react";
+import axios from "axios";
 
 export default function App() {
   // Set up State variables
@@ -9,8 +10,14 @@ export default function App() {
   
   // Get data from API
   const getSavedFriends = async () => {
-    const {friends} = await axios.get('/api/friends');
+    const response = await axios.get('/api/friends');
+    setFriend(response.data);
   }
+
+  useEffect(() => {
+    console.log("Use Effect has run");
+    getSavedFriends();
+  }, [])
 
   // Add friend object to the friends array
   const addFriend = () => {
